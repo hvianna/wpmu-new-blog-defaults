@@ -437,7 +437,7 @@ class cets_blog_defaults
 		$newoptions['default_post_edit_rows'] = $_POST['default_post_edit_rows'];
 		if ($_POST['use_smilies'] == 1) {
 		$newoptions['use_smilies'] = 1; }
-		else {$newoptions['use_smiles'] = 0;}
+		else {$newoptions['use_smilies'] = 0;}
 		if ($_POST['use_balanceTags'] == 1) {
 		$newoptions['use_balanceTags'] = 1; }
 		else {$newoptions['use_balanceTags'] = 0;}
