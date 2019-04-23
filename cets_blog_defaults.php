@@ -36,7 +36,7 @@ class cets_blog_defaults
 	{
 
 
-		global $wpdb, $wp_version;
+		global $wpdb, $wp_version, $current_site;
 
 		//if this is less than wp 3.0, just get out of here.
 		if ( version_compare( $wp_version, '3.0', '<' ) ) {
@@ -558,7 +558,7 @@ class cets_blog_defaults
 	 function cets_blog_defaults_management_page(){
 		// Display the defaults that can be set by site admins
 
-		global $wpdb;
+		global $wpdb, $current_site, $current_blog, $is_apache, $blog_id;
 
 		// only allow site admins to come here.
 		if( is_super_admin() == false ) {
@@ -591,7 +591,7 @@ class cets_blog_defaults
 		<tr valign="top">
 		<th scope="row"><?php _e('Blog Title') ?></th>
 		<td><input name="blogname" type="text" id="blogname" value="<?php echo($opt['blogname']); ?>" size="40" /><br/>
-		<input type="checkbox" name="blogname_flag" value="1" <?php checked('1', $opt[blogname_flag]) ?> /> <?php _e("I understand this will overwrite the user's chosen blog name from the setup page.") ?></td>
+		<input type="checkbox" name="blogname_flag" value="1" <?php checked('1', $opt['blogname_flag']) ?> /> <?php _e("I understand this will overwrite the user's chosen blog name from the setup page.") ?></td>
 		</tr>
 		<tr valign="top">
 		<th scope="row"><?php _e('Tagline') ?></th>
@@ -1266,7 +1266,7 @@ class cets_blog_defaults
 		$stylesheet = $themes[$theme_name]['Stylesheet'];
 		$title = $themes[$theme_name]['Title'];
 		$selected = "";
-		if($opt[theme] == $template . "|" . $stylesheet) {
+		if($opt['theme'] == $template . "|" . $stylesheet) {
 			$selected = "selected = 'selected' ";
 		}
 		echo('<option value="' . $template . "|" . $stylesheet .  '"' . $selected . '>' . $title . "</option>");
