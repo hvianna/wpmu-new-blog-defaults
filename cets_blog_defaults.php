@@ -191,7 +191,7 @@ class cets_blog_defaults
 		if (strlen($options['default_cat_name']) > 0){
 			global $wpdb;
 			$cat = $options['default_cat_name'];
-			$slug = str_replace(' ', '-', strtolower($cat));
+			$slug = str_replace(' ', '-', strtolower(remove_accents($cat)));
 			$results = $wpdb->query( $wpdb->prepare("UPDATE $wpdb->terms SET name = %s, slug = %s  WHERE term_id = 1", $cat, $slug ) );
 
 		}
