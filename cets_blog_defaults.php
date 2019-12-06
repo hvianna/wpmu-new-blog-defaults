@@ -1227,30 +1227,17 @@ class cets_blog_defaults
 		<div class="wrap">
 		<h2>Default Theme</h2>
 		<?php
-		$themes = get_themes();
-		$ct = current_theme_info();
-		$allowed_themes = get_site_allowed_themes();
-		if( $allowed_themes == false )
-			$allowed_themes = array();
 
-		$blog_allowed_themes = wpmu_get_blog_allowedthemes();
-		if( is_array( $blog_allowed_themes ) )
-			$allowed_themes = array_merge( $allowed_themes, $blog_allowed_themes );
+		$allowed_themes = wp_get_themes( array( 'allowed' => 'network' ) );
+		$themes = array();
 
-		if( $blog_id != 1 ) {
-			unset( $allowed_themes[ "h3" ] );
+		foreach ( $allowed_themes as $theme ) {
+			$name = $theme->get('Name');
+			if ( isset( $themes[ $name ] ) )
+				$themes[ $name . '/' . $theme->get_stylesheet() ] = $theme;
+			else
+				$themes[ $name ] = $theme;
 		}
-
-		if( isset( $allowed_themes[ esc_html( $ct->stylesheet ) ] ) == false )
-			$allowed_themes[ esc_html( $ct->stylesheet ) ] = true;
-
-		reset( $themes );
-		foreach( $themes as $key => $theme ) {
-			if( isset( $allowed_themes[ esc_html( $theme[ 'Stylesheet' ] ) ] ) == false ) {
-				unset( $themes[ $key ] );
-			}
-		}
-		reset( $themes );
 
 		// get the names of the themes & sort them
 		$theme_names = array_keys($themes);
